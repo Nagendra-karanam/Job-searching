@@ -206,8 +206,12 @@ if __name__ == "__main__":
     print("Fetching jobs...")
     print(f"Filters: {EXPERIENCE_YEARS} years experience, max {MAX_EXPERIENCE_YEARS} years required, posted in the last {LOOKBACK_HOURS} hours")
 
-    r1 = fetch_remoteok()
-    print("RemoteOK:", len(r1))
+    try:
+        r1 = fetch_remoteok()
+        print("RemoteOK:", len(r1))
+    except requests.RequestException as e:
+        r1 = []
+        print("RemoteOK skipped:", e)
 
     try:
         r2 = fetch_wwr()
